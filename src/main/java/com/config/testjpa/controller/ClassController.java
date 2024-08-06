@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/classrooms")
@@ -36,7 +37,7 @@ public class ClassController {
 
     @GetMapping("/{classroomId}")
     @Operation(summary = "Get classroom by id.")
-    public ResponseEntity<ApiResponse<Optional<Classroom>>> getClassroomById(@PathVariable Integer classroomId) {
+    public ResponseEntity<ApiResponse<Optional<Classroom>>> getClassroomById(@PathVariable UUID classroomId) {
         ApiResponse<Optional<Classroom>> response = ApiResponse.<Optional<Classroom>>builder()
                 .message("Get classroom by id successfully")
                 .payload(classService.getClassroomById(classroomId))
@@ -53,6 +54,19 @@ public class ClassController {
         ApiResponse<List<Classroom>> response = ApiResponse.<List<Classroom>>builder()
                 .message("Get classroom by id successfully")
                 .payload(classService.getAllClassrooms())
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping("/{classroomId}")
+    @Operation(summary = "Update classroom by id.")
+    public ResponseEntity<ApiResponse<Classroom>> updateClassroomById(@PathVariable UUID classroomId,@RequestBody ClassRequest classRequest) {
+        ApiResponse<Classroom> response = ApiResponse.<Classroom>builder()
+                .message("Update classroom by id successfully")
+                .payload(classService.updateClassroom(classroomId, classRequest))
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
                 .timestamp(LocalDateTime.now())

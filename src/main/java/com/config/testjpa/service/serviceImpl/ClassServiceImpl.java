@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -25,7 +26,7 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Optional<Classroom> getClassroomById(Integer id) {
+    public Optional<Classroom> getClassroomById(UUID id) {
         classRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Classroom not found")
         );
@@ -35,5 +36,15 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<Classroom> getAllClassrooms() {
         return classRepository.findAll();
+    }
+
+    @Override
+    public Classroom updateClassroom(UUID id,ClassRequest classRequest) {
+//        getClassroomById(id);
+        Classroom classroom = classRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Classroom not found")
+        );
+        classroom.setClassName(classRequest.getClassName());
+        return classRepository.save(classroom);
     }
 }
