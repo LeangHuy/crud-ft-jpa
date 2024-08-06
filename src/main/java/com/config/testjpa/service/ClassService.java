@@ -12,4 +12,5 @@ public interface ClassService {
     Optional<Classroom> getClassroomById(UUID id);
     List<Classroom> getAllClassrooms();
     Classroom updateClassroom(UUID id, ClassRequest classRequest);
+    void deleteClassroom(UUID id);
 }

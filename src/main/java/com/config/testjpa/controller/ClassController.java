@@ -73,4 +73,18 @@ public class ClassController {
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+
+    @DeleteMapping("/{classroomId}")
+    @Operation(summary = "Delete classroom by id.")
+    public ResponseEntity<ApiResponse<Classroom>> deleteClassroomById(@PathVariable UUID classroomId) {
+        classService.deleteClassroom(classroomId);
+        ApiResponse<Classroom> response = ApiResponse.<Classroom>builder()
+                .message("Delete classroom by id successfully")
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

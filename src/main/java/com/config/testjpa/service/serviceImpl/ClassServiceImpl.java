@@ -47,4 +47,10 @@ public class ClassServiceImpl implements ClassService {
         classroom.setClassName(classRequest.getClassName());
         return classRepository.save(classroom);
     }
+
+    @Override
+    public void deleteClassroom(UUID id) {
+        getClassroomById(id);
+        classRepository.deleteById(id);
+    }
 }
