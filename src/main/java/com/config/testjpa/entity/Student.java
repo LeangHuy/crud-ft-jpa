@@ -25,9 +25,8 @@ public class Student {
     private String studentName;
     @Column(name = "age",nullable = false)
     private Integer age;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id",nullable = false)
     private Classroom classroom;
-
 
 }
