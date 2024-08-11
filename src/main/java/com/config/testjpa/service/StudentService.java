@@ -14,4 +14,5 @@ public interface StudentService  {
     Optional<Student> getStudentById(UUID id);
     Student updateStudent(UUID id, StudentRequest studentRequest);
     void deleteStudent(UUID id);
+    List<Student> getStudentsByClassName(UUID classId);
 }

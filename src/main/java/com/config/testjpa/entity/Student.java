@@ -2,10 +2,7 @@ package com.config.testjpa.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -15,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Data
+@ToString
 public class Student {
 
     @Id
@@ -26,7 +24,7 @@ public class Student {
     @Column(name = "age",nullable = false)
     private Integer age;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "class_id",nullable = false)
+    @JoinColumn(name = "class_id")
     private Classroom classroom;
 
 }

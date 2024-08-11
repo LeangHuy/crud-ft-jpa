@@ -1,8 +1,11 @@
 package com.config.testjpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -19,5 +22,12 @@ public class Classroom {
     private UUID id;
     @Column(name = "class_name",unique = true,nullable = false)
     private String className;
+    @OneToMany(
+            mappedBy = "classroom",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnore
+    private List<Student> students = new ArrayList<>();
 
 }

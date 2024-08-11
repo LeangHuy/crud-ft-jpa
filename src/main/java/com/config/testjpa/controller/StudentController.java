@@ -86,4 +86,17 @@ public class StudentController {
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @GetMapping("/classrooms/{classId}")
+    @Operation(summary = "Get student by className.")
+    public ResponseEntity<ApiResponse<List<Student>>> getStudentsByClassName(@PathVariable UUID classId) {
+        ApiResponse<List<Student>> response = ApiResponse.<List<Student>>builder()
+                .message("Get student by class successfully.")
+                .payload(studentService.getStudentsByClassName(classId))
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

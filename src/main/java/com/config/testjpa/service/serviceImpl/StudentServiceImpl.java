@@ -50,7 +50,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student updateStudent(UUID id, StudentRequest studentRequest) {
-//        getStudentById(id); why
+//        Optional<Student> student = getStudentById(id);
+//        student.get().setStudentName(studentRequest.getStudentName());
+//        student.get().setAge(studentRequest.getAge());
         Optional<Classroom> classroom = classService.getClassroomById(studentRequest.getClassroomId());
         if (classroom.isEmpty()){
             throw new NotFoundException("Classroom not found");
@@ -68,5 +70,10 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(UUID id) {
         getStudentById(id);
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Student> getStudentsByClassName(UUID classId) {
+        return studentRepository.findAllByClassroom_Id(classId);
     }
 }

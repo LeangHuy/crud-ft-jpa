@@ -1,10 +1,14 @@
 package com.config.testjpa.service.serviceImpl;
 
 import com.config.testjpa.entity.Classroom;
+import com.config.testjpa.entity.Student;
 import com.config.testjpa.entity.dto.request.ClassRequest;
+import com.config.testjpa.exception.BadRequestException;
 import com.config.testjpa.exception.NotFoundException;
 import com.config.testjpa.repository.ClassRepository;
+import com.config.testjpa.repository.StudentRepository;
 import com.config.testjpa.service.ClassService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,7 @@ import java.util.UUID;
 @Service
 public class ClassServiceImpl implements ClassService {
     private final ClassRepository classRepository;
+    private final StudentRepository studentRepository;
 
     @Override
     public Classroom createClassroom(ClassRequest classRequest) {
@@ -52,5 +57,17 @@ public class ClassServiceImpl implements ClassService {
     public void deleteClassroom(UUID id) {
         getClassroomById(id);
         classRepository.deleteById(id);
+//        try {
+//            getClassroomById(id);
+//
+//            List<Student> studentList = studentRepository.findAllByClassroom_Id(id);
+//            for (Student student : studentList) {
+//                studentRepository.deleteById(student.getId());
+//            }
+//
+//            classRepository.deleteById(id);
+//        } catch (Exception e) {
+//            throw new BadRequestException("Failed to delete Classroom.");
+//        }
     }
 }
